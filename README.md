@@ -1,2 +1,2 @@
 # Ubuntu-Commands
-- **`ls`**:Project initialize and flow
+- **`initial phase`**:Project initialize and flow
