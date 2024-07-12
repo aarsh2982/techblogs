@@ -7,7 +7,7 @@ const Login: React.FC = () => {
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="max-w-md w-full bg-white p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Sign In</h2>
         <div className="mb-4">
           <label
             htmlFor="email"
@@ -43,7 +43,10 @@ const Login: React.FC = () => {
           </button>
         </div>
         <div className="text-center">
-          Don't have an account? <Link href="/signup">SignUp</Link>
+          Don't have an account?{" "}
+          <Link href="/signup" className="text-red-600 decoration-dashed">
+            SignUp
+          </Link>
         </div>
       </div>
     </div>
