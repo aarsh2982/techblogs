@@ -1,6 +1,7 @@
 model users {
-    user_id  Int    @id @default(autoincrement())
-    username String
-    email    String
-    password
+    user_id   Int      @id @default(autoincrement())
+    username  String
+    email     String   @unique
+    password  String
+    createdAt DateTime
 }
