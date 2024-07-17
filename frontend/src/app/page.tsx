@@ -1,24 +1,140 @@
 "use client";
-
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { useState } from "react";
+
+// Dummy blog data
+const dummyBlogs = [
+  {
+    id: 1,
+    title: "Getting Started with React Hooks",
+    content: "Learn how to use React hooks for state and side effects.",
+    author: "Aarsh Shukla",
+    date: "12-07-24",
+  },
+  {
+    id: 2,
+    title: "Introduction to Tailwind CSS",
+    content: "Discover the benefits and basics of Tailwind CSS.",
+    author: "Bhargav Thakar",
+    date: "10-07-24",
+  },
+  {
+    id: 3,
+    title: "Building Scalable Web Apps with Next.js",
+    content:
+      "Explore how Next.js can help you build scalable web applications.",
+    author: "Vimal Sonara",
+    date: "09-07-24",
+  },
+  {
+    id: 4,
+    title: "Deep Dive into TypeScript",
+    content: "Learn TypeScript fundamentals and advanced features.",
+    author: "Mitesh Bro",
+    date: "08-07-24",
+  },
+  {
+    id: 5,
+    title: "Managing State with Redux",
+    content: "Master Redux for state management in React applications.",
+    author: "Vimal Sonara",
+    date: "07-07-24",
+  },
+  {
+    id: 6,
+    title: "GraphQL: The Modern API for Frontend Development",
+    content: "Introduction to GraphQL and its advantages over REST APIs.",
+    author: "Aarsh Shukla",
+    date: "06-07-24",
+  },
+  {
+    id: 7,
+    title: "Securing Your React Applications",
+    content:
+      "Best practices for securing React applications from common vulnerabilities.",
+    author: "Bhargav Thakar",
+    date: "05-07-24",
+  },
+  {
+    id: 8,
+    title: "Optimizing Performance in React",
+    content:
+      "Techniques and tools to optimize performance in React applications.",
+    author: "Manish Vankani",
+    date: "04-07-24",
+  },
+  {
+    id: 9,
+    title: "CI/CD Pipelines with GitHub Actions",
+    content:
+      "Implement CI/CD pipelines using GitHub Actions for automated workflows.",
+    author: "Parvez Belim",
+    date: "03-07-24",
+  },
+  {
+    id: 10,
+    title: "Serverless Functions with AWS Lambda",
+    content:
+      "Introduction to serverless architecture using AWS Lambda for backend operations.",
+    author: "Nikunj Vadher",
+    date: "02-07-24",
+  },
+];
 
 const Home: React.FC = () => {
-  // State for theme
   const [theme, setTheme] = useState<"dark" | "light">("light");
-
-  // State for mobile menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  // Function to toggle theme
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  // Function to toggle mobile menu
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const shareToWhatsApp = () => {
+    console.log("Sharing to WhatsApp...");
+  };
+
+  const copyLink = () => {
+    console.log("Copying link...");
+  };
+
+  const shareToTelegram = () => {
+    console.log("Sharing to Telegram...");
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsModalOpen(false);
+      }
+    };
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setIsModalOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div
@@ -29,23 +145,19 @@ const Home: React.FC = () => {
       <header className={`bg-${theme === "light" ? "white" : "black"} shadow`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            {/* Logo */}
             <div className="flex-shrink-0 font-semibold text-2xl">
               <Link href="/">
                 Tech<span className="text-purple-800">Blogs</span>
               </Link>
             </div>
 
-            {/* Desktop Navigation Links */}
             <nav className="hidden md:flex flex-grow justify-end space-x-4 text-base mr-8 font-semibold">
               <Link href="/blog">Blog</Link>
               <Link href="/about">About</Link>
               <Link href="/contact">Contact</Link>
             </nav>
 
-            {/* Login and Signup Links */}
             <nav className="hidden md:flex items-center space-x-4">
-              {/* Theme Toggle Button */}
               <button
                 type="button"
                 onClick={toggleTheme}
@@ -63,9 +175,9 @@ const Home: React.FC = () => {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="lucide lucide-sun"
                   >
                     <circle cx="12" cy="12" r="4" />
@@ -86,9 +198,9 @@ const Home: React.FC = () => {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="lucide lucide-moon"
                   >
                     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
@@ -98,7 +210,7 @@ const Home: React.FC = () => {
               <Link href="/login">
                 <span
                   className={`text-${
-                    theme === "light" ? "text-black" : "text-black"
+                    theme === "light" ? "text-white" : "text-black"
                   } hover:text-[#DC143C] font-semibold`}
                 >
                   Login
@@ -113,7 +225,6 @@ const Home: React.FC = () => {
               </Link>
             </nav>
 
-            {/* Mobile menu button */}
             <div className="md:hidden">
               <button
                 type="button"
@@ -128,16 +239,16 @@ const Home: React.FC = () => {
                 >
                   {isMenuOpen ? (
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M6 18L18 6M6 6l12 12"
                     />
                   ) : (
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M4 6h16M4 12h16M4 18h16"
                     />
                   )}
@@ -147,7 +258,6 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Links */}
         {isMenuOpen && (
           <div className="md:hidden">
             <nav className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
@@ -172,7 +282,7 @@ const Home: React.FC = () => {
                 </span>
               </Link>
               <Link href="/signup">
-                <span className="block px-3 py-2 text-center rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-purple-800">
+                <span className="block px-3 py-2 text-center rounded-md text-base font-medium text-white bg-purple-800 hover:bg-purple-900">
                   SignUp
                 </span>
               </Link>
@@ -181,36 +291,76 @@ const Home: React.FC = () => {
         )}
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 mb-16">
-        <div
-          className={`px-4 py-6 sm:px-0 ${
-            theme === "light" ? "text-gray-800" : "text-white"
-          }`}
-        >
-          <h1 className="text-xl font-bold">Hello, This is Tech-Blogs</h1>
-          <p className="mt-4 text-lg">
-            Your ultimate source for tech news and insights.
-          </p>
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
+          {dummyBlogs.map((blog) => (
+            <div key={blog.id} className="bg-white p-6 rounded-lg shadow-md">
+              <h2 className="text-2xl font-bold mb-2">{blog.title}</h2>
+              <p className="text-gray-700">{blog.content}</p>
+              <div className="flex flex-row items-center justify-end align-center">
+                <div className="flex  justify-end flex-row items-center ">
+                  <span className="font-medium p-2">
+                    {blog.author}
+                    <span className="text-xs pl-1">{blog.date}</span>
+                  </span>
+                  <button
+                    onClick={toggleModal}
+                    className="text-black px-1 py-1 rounded-sm "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-share"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </main>
 
-      {/* Footer (optional) */}
-      <footer
-        className={`bg-${
-          theme === "light" ? "white" : "gray-900"
-        } border-t border-gray-200`}
-      >
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <p
-            className={`text-center text-${
-              theme === "light" ? "gray-500" : "text-black"
-            } text-sm`}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
+          <div
+            ref={modalRef}
+            className="bg-white p-6 rounded-lg shadow-md max-w-md w-full relative"
           >
-            &copy; 2024 TechBlogs. All rights reserved.
-          </p>
+            <h2 className="text-2xl font-bold mb-4">Share this blog</h2>
+            <div className="flex space-x-4">
+              <button
+                onClick={copyLink}
+                className="bg-gray-500 text-white px-3 py-2 rounded-md hover:bg-gray-600"
+              >
+                Copy Link
+              </button>
+            </div>
+            <button
+              onClick={toggleModal}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-600"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
-      </footer>
+      )}
     </div>
   );
 };
