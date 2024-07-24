@@ -67,7 +67,7 @@ const Signup: React.FC = () => {
               type="text"
               id="username"
               {...register("username", { required: "Username is required" })}
-              className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+              className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white ${
                 errors.username ? "border-red-500" : ""
               }`}
             />
@@ -94,7 +94,7 @@ const Signup: React.FC = () => {
                   message: "Invalid email address",
                 },
               })}
-              className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+              className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white ${
                 errors.email ? "border-red-500" : ""
               }`}
             />
@@ -121,7 +121,7 @@ const Signup: React.FC = () => {
                   message: "Password must be at least 6 characters",
                 },
               })}
-              className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+              className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white ${
                 errors.password ? "border-red-500" : ""
               }`}
             />
@@ -145,7 +145,7 @@ const Signup: React.FC = () => {
                 validate: (value) =>
                   value === watch("password") || "Passwords must match",
               })}
-              className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${
+              className={`mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white ${
                 errors.confirmPassword ? "border-red-500" : ""
               }`}
             />
@@ -188,7 +188,7 @@ const Signup: React.FC = () => {
               Sign Up
             </button>
             <div className="text-center mt-4">
-              Don't have an account?{" "}
+              Already have an account?{" "}
               <Link href="/login" className="text-red-600">
                 Login
               </Link>
